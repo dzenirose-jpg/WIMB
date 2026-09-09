@@ -1,0 +1,171 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "After-Work Recovery Survey: Product Insights",
+    "description": "A stakeholder report based on 26 survey responses collected August 18–20, 2026.",
+    "generatedAt": "2026-08-21T00:00:00Z",
+    "cards": [
+      {
+        "id": "frequent-exhaustion",
+        "description": "Respondents who feel drained at least a few times per week.",
+        "dataset": "headline_metrics",
+        "sourceId": "headline_metrics_query",
+        "filter": { "metric": "Frequent exhaustion" },
+        "metrics": [{ "label": "Frequent exhaustion", "field": "share", "format": "percent" }]
+      },
+      {
+        "id": "prior-app-use",
+        "description": "Respondents who have tried a wellness, meditation, sleep, or fitness app.",
+        "dataset": "headline_metrics",
+        "sourceId": "headline_metrics_query",
+        "filter": { "metric": "Prior app use" },
+        "metrics": [{ "label": "Prior app use", "field": "share", "format": "percent" }]
+      },
+      {
+        "id": "regular-app-use",
+        "description": "Respondents who use similar apps regularly.",
+        "dataset": "headline_metrics",
+        "sourceId": "headline_metrics_query",
+        "filter": { "metric": "Regular app use" },
+        "metrics": [{ "label": "Regular app use", "field": "share", "format": "percent" }]
+      }
+    ],
+    "charts": [
+      {
+        "id": "drain-frequency-chart",
+        "title": "How often respondents feel drained",
+        "subtitle": "26 respondents; frequency after a demanding day.",
+        "type": "bar",
+        "dataset": "drain_frequency",
+        "sourceId": "drain_frequency_query",
+        "encodings": {
+          "x": { "field": "response", "type": "nominal", "label": "Frequency" },
+          "y": { "field": "respondents", "type": "quantitative", "label": "Respondents" },
+          "tooltip": [{ "field": "share", "type": "quantitative", "label": "Share", "format": "percent" }]
+        }
+      },
+      {
+        "id": "recovery-state-chart",
+        "title": "Primary state after a demanding day",
+        "subtitle": "Categories reflect the response selected by each respondent.",
+        "type": "bar",
+        "dataset": "recovery_state",
+        "sourceId": "recovery_state_query",
+        "encodings": {
+          "x": { "field": "state", "type": "nominal", "label": "Primary state" },
+          "y": { "field": "respondents", "type": "quantitative", "label": "Respondents" },
+          "tooltip": [{ "field": "share", "type": "quantitative", "label": "Share", "format": "percent" }]
+        }
+      },
+      {
+        "id": "app-use-chart",
+        "title": "Experience with similar wellness apps",
+        "subtitle": "Prior exposure is common, but regular use is limited.",
+        "type": "bar",
+        "dataset": "app_experience",
+        "sourceId": "app_experience_query",
+        "encodings": {
+          "x": { "field": "experience", "type": "nominal", "label": "Experience" },
+          "y": { "field": "respondents", "type": "quantitative", "label": "Respondents" },
+          "tooltip": [{ "field": "share", "type": "quantitative", "label": "Share", "format": "percent" }]
+        }
+      }
+    ],
+    "tables": [],
+    "sources": [
+      {
+        "id": "headline_metrics_query",
+        "label": "User-provided survey workbook — headline metrics",
+        "path": "Surveys CAPSTONE PROJECT.xlsx",
+        "query": { "engine": "sqlite", "language": "sql", "sql": "SELECT metric, respondents, total, respondents * 1.0 / total AS share FROM headline_metrics;", "description": "Calculated summary metrics from the 26 survey responses.", "tables_used": ["headline_metrics"] }
+      },
+      {
+        "id": "drain_frequency_query",
+        "label": "User-provided survey workbook — exhaustion frequency",
+        "path": "Surveys CAPSTONE PROJECT.xlsx",
+        "query": { "engine": "sqlite", "language": "sql", "sql": "SELECT response, COUNT(*) AS respondents, COUNT(*) * 1.0 / 26 AS share FROM survey_responses GROUP BY response;", "description": "Frequency of feeling mentally or physically drained after a demanding day.", "tables_used": ["survey_responses"] }
+      },
+      {
+        "id": "recovery_state_query",
+        "label": "User-provided survey workbook — post-work state",
+        "path": "Surveys CAPSTONE PROJECT.xlsx",
+        "query": { "engine": "sqlite", "language": "sql", "sql": "SELECT state, COUNT(*) AS respondents, COUNT(*) * 1.0 / 26 AS share FROM recovery_state GROUP BY state;", "description": "Selected or normalized post-work recovery state from the survey responses.", "tables_used": ["recovery_state"] }
+      },
+      {
+        "id": "app_experience_query",
+        "label": "User-provided survey workbook — wellness app experience",
+        "path": "Surveys CAPSTONE PROJECT.xlsx",
+        "query": { "engine": "sqlite", "language": "sql", "sql": "SELECT experience, COUNT(*) AS respondents, COUNT(*) * 1.0 / 26 AS share FROM app_experience GROUP BY experience;", "description": "Previous use of wellness, meditation, sleep, or fitness apps.", "tables_used": ["app_experience"] }
+      }
+    ],
+    "blocks": [
+      { "id": "title", "type": "markdown", "body": "# After-Work Recovery Survey: Product Insights" },
+      {
+        "id": "executive-summary",
+        "type": "markdown",
+        "sourceId": "headline_metrics_query",
+        "body": "## Executive Summary\n\n- **Recovery is a frequent need.** 23 of 26 respondents (88%) feel mentally or physically drained at least a few times a week.\n- **Mental overload is the clearest entry point.** The largest single group described a busy or overstimulated mind (8 of 26), while another 7 described needing both physical and mental recovery.\n- **Existing wellness apps have awareness but weak retention.** 17 respondents have tried a similar app, yet only 5 use one regularly. Repeated friction includes the feeling of another task, forgetting to use it, and too much choice.\n- **Product direction:** prioritize one personalized, low-effort after-work reset based on mood and available time—not a large content library."
+      },
+      { "id": "metrics", "type": "metric-strip", "cardIds": ["frequent-exhaustion", "prior-app-use", "regular-app-use"] },
+      {
+        "id": "drain-frequency-narrative",
+        "type": "markdown",
+        "sourceId": "drain_frequency_query",
+        "body": "## Exhaustion is recurring, not occasional\n\n**The core problem is broad enough to justify a focused recovery experience.** Fifteen respondents feel drained a few times a week and eight feel that way almost every day. This suggests the product should support a recurring after-work moment rather than a rare crisis.\n\nThe experience should assume low energy: minimal setup, one clear action, and no pressure to complete a long program."
+      },
+      { "id": "drain-frequency", "type": "chart", "chartId": "drain-frequency-chart" },
+      {
+        "id": "recovery-state-narrative",
+        "type": "markdown",
+        "sourceId": "recovery_state_query",
+        "body": "## Design for the mind first, but do not ignore the body\n\n**Mental overstimulation is the largest single need, while mixed physical-and-mental fatigue is nearly as common.** A useful first interaction is a short check-in such as “My mind feels busy,” “My body feels tense,” or “I need both.”\n\nRecommendations should build on current behaviours—music, showers or baths, walking, gentle stretching, rest, and social connection—instead of assuming that meditation is right for everyone."
+      },
+      { "id": "recovery-state", "type": "chart", "chartId": "recovery-state-chart" },
+      {
+        "id": "app-experience-narrative",
+        "type": "markdown",
+        "sourceId": "app_experience_query",
+        "body": "## The opportunity is better guidance, not more content\n\n**Most respondents know the category, but few have made it habitual.** This points to an adoption problem, not simply an awareness problem. Respondents repeatedly mentioned that apps can feel like extra work, are easy to forget, or create too many choices.\n\nThe MVP should ask two lightweight questions—current state and available time—then offer a single 5-, 10-, or 20-minute ritual. Make it easy to skip, avoid intrusive reminders, and keep the first useful experience free."
+      },
+      { "id": "app-experience", "type": "chart", "chartId": "app-use-chart" },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "body": "## Recommended Next Steps\n\n1. Prototype the two-question check-in and a single personalized recommendation.\n2. Test three ritual formats: screen-light audio/music, gentle movement, and offline activities such as a shower or short walk.\n3. Run a second survey or usability test with a concrete prototype and measure likelihood to use it, preferred duration, willingness to pay, and whether it feels like another task.\n\n## Further Questions\n\n- Which recovery suggestions produce a felt improvement after one session?\n- Is a phone-free ritual more appealing than an in-app guided ritual?\n- What reminder style, if any, helps without creating pressure?\n\n## Caveats and Assumptions\n\nThis is directional research, not market validation: the sample contains 26 responses and is concentrated in the 25–44 age range. Two purchase-intent questions were blank for 25 respondents, so the survey cannot reliably quantify feature demand, willingness to pay, or barriers to adoption."
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-21T00:00:00Z",
+    "status": "ready",
+    "datasets": {
+      "headline_metrics": [
+        { "metric": "Frequent exhaustion", "respondents": 23, "total": 26, "share": 0.884615 },
+        { "metric": "Prior app use", "respondents": 17, "total": 26, "share": 0.653846 },
+        { "metric": "Regular app use", "respondents": 5, "total": 26, "share": 0.192308 }
+      ],
+      "drain_frequency": [
+        { "response": "Almost every day", "respondents": 8, "share": 0.307692 },
+        { "response": "A few times a week", "respondents": 15, "share": 0.576923 },
+        { "response": "About once a week", "respondents": 1, "share": 0.038462 },
+        { "response": "Rarely", "respondents": 2, "share": 0.076923 }
+      ],
+      "recovery_state": [
+        { "state": "Busy or overstimulated mind", "respondents": 8, "share": 0.307692 },
+        { "state": "Body and mind need recovery", "respondents": 7, "share": 0.269231 },
+        { "state": "Body feels tired or tense", "respondents": 6, "share": 0.230769 },
+        { "state": "Emotionally drained", "respondents": 2, "share": 0.076923 },
+        { "state": "Other or mixed response", "respondents": 3, "share": 0.115385 }
+      ],
+      "app_experience": [
+        { "experience": "No prior use", "respondents": 9, "share": 0.346154 },
+        { "experience": "Tried once or twice", "respondents": 12, "share": 0.461538 },
+        { "experience": "Use regularly", "respondents": 5, "share": 0.192308 }
+      ]
+    },
+    "accessIssues": []
+  }
+}

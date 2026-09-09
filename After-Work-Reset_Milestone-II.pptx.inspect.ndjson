@@ -1,0 +1,122 @@
+{"kind":"deck","id":"pr/rzdovu","name":"Deck"}
+{"kind":"layout","layoutId":"7d4bb575-33c4-495c-b7ca-7b8b123f8881","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"38dd9dc1-636d-4d38-8686-5ca8866808ee","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/f3l7fx","slide":1,"title":"AFTER-WORK","textShapes":4}
+{"kind":"shape","id":"sh/yt87m5cz","slide":1,"bbox":[0,0,490,720]}
+{"kind":"shape","id":"sh/lwzqx0bq","slide":1,"bbox":[750,130,390,390]}
+{"kind":"textbox","id":"sh/kvqpovu5","slide":1,"text":"AFTER-WORK\nRESET","textPreview":"AFTER-WORK | RESET","textChars":16,"textLines":2,"bbox":[64,145,700,180]}
+{"kind":"textbox","id":"sh/7yh8zatw","slide":1,"text":"A personalised recovery app\nand product kit","textPreview":"A personalised recovery app | and product kit","textChars":43,"textLines":2,"bbox":[68,350,530,72]}
+{"kind":"textbox","id":"sh/6x87q5cb","slide":1,"text":"Milestone II · Pre-Project Package","textPreview":"Milestone II · Pre-Project Package","textChars":34,"textLines":1,"bbox":[68,615,500,30]}
+{"kind":"textbox","id":"sh/tkjq1kbm","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1065,570,105,76]}
+{"kind":"notes","id":"nt/f3l7fx","slide":1,"text":"Our project is called After-Work Reset. We are creating an app that helps busy people relax and recover after a demanding day. It combines personalised digital recovery rituals with optional physical products."}
+{"kind":"slide","id":"sl/yzxtuf","slide":2,"title":"MILESTONE II","textShapes":7}
+{"kind":"textbox","id":"sh/y503i9kz","slide":2,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/l8rmdo3a","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/07ilkj2p","slide":2,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/nat4felg","slide":2,"text":"Recovery should not feel like\nanother task.","textPreview":"Recovery should not feel like | another task.","textChars":43,"textLines":2,"bbox":[64,100,1100,80]}
+{"kind":"shape","id":"sh/m9k3mtkv","slide":2,"bbox":[64,300,550,235]}
+{"kind":"textbox","id":"sh/9cbmho3m","slide":2,"text":"After a demanding day","textPreview":"After a demanding day","textChars":21,"textLines":1,"bbox":[92,330,250,30]}
+{"kind":"textbox","id":"sh/8b2loj21","slide":2,"text":"People arrive home physically tired, mentally overwhelmed, or both.","textPreview":"People arrive home physically tired, mentally overwhelmed, or both.","textChars":67,"textLines":1,"bbox":[92,378,460,82]}
+{"kind":"shape","id":"sh/3epk3ulw","slide":2,"bbox":[680,300,472,235]}
+{"kind":"textbox","id":"sh/2dg3ap4r","slide":2,"text":"The friction","textPreview":"The friction","textChars":12,"textLines":1,"bbox":[710,330,250,30]}
+{"kind":"textbox","id":"sh/o3ahoryp","slide":2,"text":"Choosing what to do and preparing it can feel like too much effort.","textPreview":"Choosing what to do and preparing it can feel like too much effort.","textChars":67,"textLines":1,"bbox":[710,378,390,82]}
+{"kind":"notes","id":"nt/yzxtuf","slide":2,"text":"Many busy city residents come home physically tired, mentally overwhelmed, or both. They want to rest, but they often do not know what would help. Choosing an activity and preparing it can feel like too much effort."}
+{"kind":"slide","id":"sl/ga8t34","slide":3,"title":"MILESTONE II","textShapes":7}
+{"kind":"textbox","id":"sh/rixgnet8","slide":3,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/c3qhgjat","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/d4zypoby","slide":3,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/e58zitsj","slide":3,"text":"One personalised recovery ritual.","textPreview":"One personalised recovery ritual.","textChars":33,"textLines":1,"bbox":[64,100,1100,80]}
+{"kind":"textbox","id":"sh/z6hgryt4","slide":3,"text":"No planning. No decision fatigue.","textPreview":"No planning. No decision fatigue.","textChars":33,"textLines":1,"bbox":[64,186,960,52]}
+{"kind":"shape","id":"sh/07qhk3ap","slide":3,"bbox":[64,300,1152,196]}
+{"kind":"textbox","id":"sh/18zitoba","slide":3,"text":"HOW IT WORKS","textPreview":"HOW IT WORKS","textChars":12,"textLines":1,"bbox":[92,326,250,26]}
+{"kind":"textbox","id":"sh/u94f6pcf","slide":3,"text":"How do you feel?  →  How much time do you have?  →  Your ritual is ready.","textPreview":"How do you feel?  →  How much time do you have?  →  Your ritual is ready.","textChars":73,"textLines":1,"bbox":[92,375,1030,62]}
+{"kind":"textbox","id":"sh/fadgfut0","slide":3,"text":"The user does not browse a content library. They press Start.","textPreview":"The user does not browse a content library. They press Start.","textChars":61,"textLines":1,"bbox":[92,448,800,28]}
+{"kind":"notes","id":"nt/ga8t34","slide":3,"text":"Our app asks the user how they feel and how much time they have. Then it gives them one recovery ritual to follow. Instead of scrolling through many options, the user can simply press Start."}
+{"kind":"slide","id":"sl/1i9zx1","slide":4,"title":"MILESTONE II","textShapes":16}
+{"kind":"textbox","id":"sh/sje58nqp","slide":4,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/7i54zip4","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/6xwn6d8j","slide":4,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/5wnmx87y","slide":4,"text":"A ritual combines the right\nrecovery elements.","textPreview":"A ritual combines the right | recovery elements.","textChars":46,"textLines":2,"bbox":[64,100,1100,80]}
+{"kind":"textbox","id":"sh/kve543qd","slide":4,"text":"Example: mentally overwhelmed + 15 minutes","textPreview":"Example: mentally overwhelmed + 15 minutes","textChars":42,"textLines":1,"bbox":[64,186,960,52]}
+{"kind":"shape","id":"sh/ju54vyp8","slide":4,"bbox":[64,310,230,168]}
+{"kind":"textbox","id":"sh/itcn2d8n","slide":4,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[86,330,45,32]}
+{"kind":"textbox","id":"sh/ps769c7i","slide":4,"text":"Breathe","textPreview":"Breathe","textChars":7,"textLines":1,"bbox":[86,370,185,38]}
+{"kind":"textbox","id":"sh/4ry5g7qx","slide":4,"text":"2 minutes to slow down","textPreview":"2 minutes to slow down","textChars":22,"textLines":1,"bbox":[86,416,185,45]}
+{"kind":"shape","id":"sh/q98zu187","slide":4,"bbox":[330,310,230,168]}
+{"kind":"textbox","id":"sh/rahg369s","slide":4,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[352,330,45,32]}
+{"kind":"textbox","id":"sh/sbqhwbqd","slide":4,"text":"Move","textPreview":"Move","textChars":4,"textLines":1,"bbox":[352,370,185,38]}
+{"kind":"textbox","id":"sh/dczi5gry","slide":4,"text":"5 minutes of gentle stretching","textPreview":"5 minutes of gentle stretching","textChars":30,"textLines":1,"bbox":[352,416,185,45]}
+{"kind":"shape","id":"sh/ilozqh8b","slide":4,"bbox":[596,310,230,168]}
+{"kind":"textbox","id":"sh/3mxgzm9w","slide":4,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[618,330,45,32]}
+{"kind":"textbox","id":"sh/4n6hsrqh","slide":4,"text":"Unwind","textPreview":"Unwind","textChars":6,"textLines":1,"bbox":[618,370,185,38]}
+{"kind":"textbox","id":"sh/58zy1wr2","slide":4,"text":"Calming audio + warm drink prompt","textPreview":"Calming audio + warm drink prompt","textChars":33,"textLines":1,"bbox":[618,416,185,45]}
+{"kind":"shape","id":"sh/2hsz2l8f","slide":4,"bbox":[862,310,230,168]}
+{"kind":"textbox","id":"sh/ni10bqp0","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[884,330,45,32]}
+{"kind":"textbox","id":"sh/zmtw3ipc","slide":4,"text":"Finish","textPreview":"Finish","textChars":6,"textLines":1,"bbox":[884,370,185,38]}
+{"kind":"textbox","id":"sh/ylkvudo7","slide":4,"text":"Quick check: did this help?","textPreview":"Quick check: did this help?","textChars":27,"textLines":1,"bbox":[884,416,185,45]}
+{"kind":"notes","id":"nt/1i9zx1","slide":4,"text":"For example, if a user feels mentally overwhelmed and has 15 minutes, the app could guide them through breathing, gentle stretching, calming audio, and a simple tea or shower suggestion."}
+{"kind":"slide","id":"sl/cis627","slide":5,"title":"MILESTONE II","textShapes":8}
+{"kind":"textbox","id":"sh/4jqd83el","slide":5,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/jihcfyd0","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/ih8b6twf","slide":5,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/toju58v2","slide":5,"text":"Digital guidance, supported by\nphysical products.","textPreview":"Digital guidance, supported by | physical products.","textChars":49,"textLines":2,"bbox":[64,100,1100,80]}
+{"kind":"shape","id":"sh/snadc3ex","slide":5,"bbox":[64,300,500,205]}
+{"kind":"textbox","id":"sh/rm1c3ydc","slide":5,"text":"THE APP","textPreview":"THE APP","textChars":7,"textLines":1,"bbox":[92,330,200,25]}
+{"kind":"textbox","id":"sh/6lsvadwr","slide":5,"text":"Gives one ready-to-start ritual based on mood and available time.","textPreview":"Gives one ready-to-start ritual based on mood and available time.","textChars":65,"textLines":1,"bbox":[92,375,400,84]}
+{"kind":"shape","id":"sh/1c3u9sve","slide":5,"bbox":[650,300,500,205]}
+{"kind":"textbox","id":"sh/gbadgnet","slide":5,"text":"THE PRODUCT KIT","textPreview":"THE PRODUCT KIT","textChars":15,"textLines":1,"bbox":[678,330,260,25]}
+{"kind":"textbox","id":"sh/y9gz2x8v","slide":5,"text":"Optional products help make the ritual easier to repeat at home.","textPreview":"Optional products help make the ritual easier to repeat at home.","textChars":64,"textLines":1,"bbox":[678,375,420,84]}
+{"kind":"textbox","id":"sh/zap0vi9g","slide":5,"text":"Examples: tea · eye mask · magnesium spray · bath salts · shower steamers","textPreview":"Examples: tea · eye mask · magnesium spray · bath salts · shower steamers","textChars":73,"textLines":1,"bbox":[64,570,1040,34]}
+{"kind":"notes","id":"nt/cis627","slide":5,"text":"We also offer products that support the recovery ritual, such as tea, an eye mask, magnesium spray, bath salts, or shower steamers. The product is optional, but it makes the ritual easier to repeat and creates a physical connection to the experience."}
+{"kind":"slide","id":"sl/izbby4","slide":6,"title":"MILESTONE II","textShapes":9}
+{"kind":"textbox","id":"sh/k3ad8ni1","slide":6,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/jihczihg","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/ih8b6d0v","slide":6,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/t8ju5szi","slide":6,"text":"Our research tests whether\nthis solves a real problem.","textPreview":"Our research tests whether | this solves a real problem.","textChars":54,"textLines":2,"bbox":[64,100,1100,80]}
+{"kind":"shape","id":"sh/s7adcnix","slide":6,"bbox":[64,310,500,218]}
+{"kind":"textbox","id":"sh/761c3ihs","slide":6,"text":"METHOD","textPreview":"METHOD","textChars":6,"textLines":1,"bbox":[92,338,180,25]}
+{"kind":"textbox","id":"sh/65svad07","slide":6,"text":"Short survey\n+ 5–8 interviews","textPreview":"Short survey | + 5–8 interviews","textChars":29,"textLines":2,"bbox":[92,380,340,78]}
+{"kind":"shape","id":"sh/9czutoje","slide":6,"bbox":[650,310,500,218]}
+{"kind":"textbox","id":"sh/8b6t03it","slide":6,"text":"WHAT WE WANT TO LEARN","textPreview":"WHAT WE WANT TO LEARN","textChars":21,"textLines":1,"bbox":[678,338,350,25]}
+{"kind":"shape","id":"sh/uxgzix07","slide":6,"bbox":[678,392,10,10]}
+{"kind":"textbox","id":"sh/fypgb21s","slide":6,"text":"How people recover after work","textPreview":"How people recover after work","textChars":29,"textLines":1,"bbox":[702,382,376,42]}
+{"kind":"shape","id":"sh/gzyhk7id","slide":6,"bbox":[678,437,10,10]}
+{"kind":"textbox","id":"sh/h07ydcjy","slide":6,"text":"What stops them from doing it","textPreview":"What stops them from doing it","textChars":29,"textLines":1,"bbox":[702,427,376,42]}
+{"kind":"shape","id":"sh/21gzmx0j","slide":6,"bbox":[678,482,10,10]}
+{"kind":"textbox","id":"sh/329gf214","slide":6,"text":"Whether decision fatigue is the barrier","textPreview":"Whether decision fatigue is the barrier","textChars":39,"textLines":1,"bbox":[702,472,416,42]}
+{"kind":"notes","id":"nt/izbby4","slide":6,"text":"Our research will include a short survey and interviews with busy city residents. We want to understand how people currently recover, what stops them, and whether decision fatigue is really the biggest barrier."}
+{"kind":"slide","id":"sl/ay8otj","slide":7,"title":"MILESTONE II","textShapes":7}
+{"kind":"textbox","id":"sh/1sf6lw7e","slide":7,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/ep47ah83","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/zqdojmpo","slide":7,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/cnmp8rqx","slide":7,"text":"First insight: more content\ndoes not always mean easier recovery.","textPreview":"First insight: more content | does not always mean easier recovery.","textChars":65,"textLines":2,"bbox":[64,100,1100,80]}
+{"kind":"shape","id":"sh/dov6hw7i","slide":7,"bbox":[64,300,530,210]}
+{"kind":"textbox","id":"sh/ql476h8r","slide":7,"text":"HYPOTHESIS","textPreview":"HYPOTHESIS","textChars":10,"textLines":1,"bbox":[92,330,180,25]}
+{"kind":"textbox","id":"sh/rmdofmpc","slide":7,"text":"People will use a short, ready-made ritual because it removes the need to plan or decide.","textPreview":"People will use a short, ready-made ritual because it removes the need to plan or decide.","textChars":89,"textLines":1,"bbox":[92,373,440,100]}
+{"kind":"shape","id":"sh/4z2p47q1","slide":7,"bbox":[656,300,496,210]}
+{"kind":"textbox","id":"sh/pkv6dc76","slide":7,"text":"FIRST DESK-RESEARCH INSIGHT","textPreview":"FIRST DESK-RESEARCH INSIGHT","textChars":27,"textLines":1,"bbox":[684,330,360,25]}
+{"kind":"textbox","id":"sh/pgbih4zm","slide":7,"text":"Existing wellness apps offer many choices; public feedback shows that this can feel overwhelming or like homework.","textPreview":"Existing wellness apps offer many choices; public feedback shows that this can feel overwhelming or like homework.","textChars":114,"textLines":1,"bbox":[684,373,405,100]}
+{"kind":"notes","id":"nt/ay8otj","slide":7,"text":"Our hypothesis is that people will use a short, ready-made ritual because it removes the need to plan or decide. Our initial competitor research shows that many existing apps offer a lot of content, but users can find too many choices overwhelming.\n\n[Sources]\nCalm official product page: https://www.calm.com/?lang=en\nBalance support: https://support.balanceapp.com/hc/en-us/articles/4407700854171-What-is-Balance\nReddit public discussion: https://www.reddit.com/r/ProductivityApps/comments/1ptm1ee/what_are_the_best_wellbeing_apps_you_have_tried/"}
+{"kind":"slide","id":"sl/n5dimx","slide":8,"title":"MILESTONE II","textShapes":16}
+{"kind":"textbox","id":"sh/zi5ovqh4","slide":8,"text":"MILESTONE II","textPreview":"MILESTONE II","textChars":12,"textLines":1,"bbox":[64,35,260,28]}
+{"kind":"textbox","id":"sh/kjepovip","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1150,35,66,28]}
+{"kind":"shape","id":"sh/lkn6x0za","slide":8,"bbox":[64,70,1152,2]}
+{"kind":"textbox","id":"sh/adc7il0n","slide":8,"text":"Next: turn early evidence\ninto a tested MVP.","textPreview":"Next: turn early evidence | into a tested MVP.","textChars":44,"textLines":2,"bbox":[64,100,1100,80]}
+{"kind":"shape","id":"sh/belor6h8","slide":8,"bbox":[64,330,220,150]}
+{"kind":"textbox","id":"sh/cfepkbit","slide":8,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[86,350,50,25]}
+{"kind":"textbox","id":"sh/xgn6tgze","slide":8,"text":"Collect feedback","textPreview":"Collect feedback","textChars":16,"textLines":1,"bbox":[86,390,180,31]}
+{"kind":"textbox","id":"sh/u9g7u50r","slide":8,"text":"Run the survey and interviews","textPreview":"Run the survey and interviews","textChars":29,"textLines":1,"bbox":[86,432,178,38]}
+{"kind":"shape","id":"sh/vap83ahc","slide":8,"bbox":[345,330,220,150]}
+{"kind":"textbox","id":"sh/zidwvq94","slide":8,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[367,350,50,25]}
+{"kind":"textbox","id":"sh/eh4v258j","slide":8,"text":"Define MVP","textPreview":"Define MVP","textChars":10,"textLines":1,"bbox":[367,390,180,31]}
+{"kind":"textbox","id":"sh/lkvex0ra","slide":8,"text":"Choose the essential first features","textPreview":"Choose the essential first features","textChars":35,"textLines":1,"bbox":[367,432,178,38]}
+{"kind":"shape","id":"sh/0jmd4vqp","slide":8,"bbox":[626,330,220,150]}
+{"kind":"textbox","id":"sh/nmxwza90","slide":8,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[648,350,50,25]}
+{"kind":"textbox","id":"sh/mlov658f","slide":8,"text":"Create prototype","textPreview":"Create prototype","textChars":16,"textLines":1,"bbox":[648,390,180,31]}
+{"kind":"textbox","id":"sh/9ofe1kr6","slide":8,"text":"Visualise the ritual experience","textPreview":"Visualise the ritual experience","textChars":31,"textLines":1,"bbox":[648,432,178,38]}
+{"kind":"shape","id":"sh/8n6d8fql","slide":8,"bbox":[907,330,220,150]}
+{"kind":"textbox","id":"sh/vqxw3a9c","slide":8,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[929,350,50,25]}
+{"kind":"textbox","id":"sh/apovap8r","slide":8,"text":"Test","textPreview":"Test","textChars":4,"textLines":1,"bbox":[929,390,180,31]}
+{"kind":"textbox","id":"sh/65sz29sz","slide":8,"text":"See if people would use it after work","textPreview":"See if people would use it after work","textChars":37,"textLines":1,"bbox":[929,432,178,38]}
+{"kind":"textbox","id":"sh/761gvetk","slide":8,"text":"Our aim is simple: make recovery easier when people have the least energy to decide.","textPreview":"Our aim is simple: make recovery easier when people have the least energy to decide.","textChars":84,"textLines":1,"bbox":[64,575,1000,40]}
+{"kind":"notes","id":"nt/n5dimx","slide":8,"text":"Our next step is to collect survey and interview feedback. Based on this, we will define the first version of the app, create a prototype, and test whether people would actually use it after work."}
