@@ -110,6 +110,8 @@ Complete tokens for body text, labels, metadata, buttons, and navigation are not
 - Standard top safe area: **70px**
 - Standard bottom safe area: **35px**
 - Main action height: **50px**
+- Primary action buttons in the Reset flow remain fixed at the bottom of the screen, with a 35px bottom safe area.
+- When a Reset screen places a mascot between a content box and the fixed action area, the mascot must adapt to the content height and remain centered in the available space without overlapping the text, box, or buttons.
 - Journal bottom content space: **124px** when fixed navigation requires it
 
 Connected screens must use consistent alignment, spacing, safe-area treatment, scrolling behavior, and responsive mobile behavior. Do not invent additional spacing tokens.
@@ -204,4 +206,3 @@ Before completing a visual change, verify:
 - Responsive mobile layout
 - Reduced-motion behavior
 - Browser and console errors
-
