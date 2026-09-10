@@ -252,6 +252,7 @@ overflow:hidden}.app{width:100%;
 height:100dvh;
 max-height:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important}}
 </style><body><main class="app"><div class="toast" id="toast"></div><div id="root"></div></main><script>
+const onboardingMascots={welcome:'assets/onboarding/welcome.svg',account:'assets/onboarding/account.svg',glasses:'assets/onboarding/account-glasses.svg',intro:'assets/onboarding/intro.svg',location:'assets/onboarding/location.svg',done:'assets/onboarding/done.svg'};
 const S={screen:location.hash==='#journal'?'journal':'welcome',on:0,answers:[],time:'',mood:'',journal:'gallery',memories:[{name:'Evening tea',date:'Today',note:'A warm pause after work.'},{name:'Slow bike ride',date:'26 August',note:'30 minutes outside.'}],saved:false};
 const $=s=>document.querySelector(s);
 const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -259,22 +260,22 @@ function toast(t){let e=$('#toast');
 e.textContent=t;
 e.classList.add('show');
 setTimeout(()=>e.classList.remove('show'),2200)}function go(x){S.screen=x;
-render()}function hdr(back=''){return `<div class="top">${back?`<button class="back-chevron" aria-label="Back" onclick="${back}">‹</button>`:'<span class="top-spacer"></span>'}<div class="brand"><i class="mark"></i>Soft Reset</div><span class="muted">${S.screen==='home'?'Good evening':'01:24'}</span></div>`}function nav(on='home'){return `<nav class="nav glass"><button class="${on==='home'?'on':''}" onclick="go('home')">⌂</button><button class="${on==='journal'?'on':''}" onclick="go('journal')">◫</button><button class="${on==='profile'?'on':''}" onclick="go('profile')">◯</button></nav>`}function choice(a,sel,fn,i='◌'){return `<button class="choice glass ${sel?'sel':''}" onclick="${fn}"><i>${i}</i>${a}</button>`}const qs=[['When do you usually need a Reset?','Choose the moment that feels most familiar.',['In the morning','In the evening','During a brake','After work','It changes every day']],['Where do you prefer to Reset?','Choose the place that feels best for you.',['At home','Outside','At work','Anywhere']],['What would you like more of in your day?','Choose what fits your needs.',['More calm','More energy','More focus','More time for myself']]];
+render()}function hdr(back=''){return `<div class="top">${back?`<button class="back-chevron" aria-label="Back" onclick="${back}">‹</button>`:'<span class="top-spacer"></span>'}<div class="brand"><i class="mark"></i>Soft Reset</div><span class="muted">${S.screen==='home'?'Good evening':'01:24'}</span></div>`}function nav(on='home'){return `<nav class="nav glass"><button class="${on==='home'?'on':''}" onclick="go('home')">⌂</button><button class="${on==='journal'?'on':''}" onclick="go('journal')">◫</button><button class="${on==='profile'?'on':''}" onclick="go('profile')">◯</button></nav>`}function choice(a,sel,fn,i='◌'){return `<button class="choice glass ${sel?'sel':''}" onclick="${fn}"><i>${i}</i>${a}</button>`}const qs=[['When do you usually need a Reset?','Choose the moment that feels most familiar.',['In the morning','In the evening','During a brake','After work','It changes every day']],['Where do you prefer to Reset?','Choose the place that feels best for you.',['At home','Outside','At work','Anywhere']],['What would you like more of in your day?','Choose what fits your needs.',['A quiet moment','Moving my body','Something fun','More time for myself']]];
 
 function render(){let x=S.screen,h='';
-if(x==='welcome')h=`<div class="onboarding-welcome-title">Welcome to<br><span>Where</span> is<br><em>My Break</em>?</div><img class="onboarding-mascot onboarding-mascot-large" src="${journalMascots.gallery}" alt="WIMB mascot"><p class="onboarding-welcome-copy">Small pauses that help you<br>feel more<br>like yourself.</p><button class="onboarding-screen-link" onclick="go('account')" aria-label="Continue"></button>`;
+if(x==='welcome')h=`<div class="onboarding-welcome-title">Welcome to<br><span>Where</span> is<br><em>My Break</em>?</div><img class="onboarding-mascot onboarding-mascot-large" src="${onboardingMascots.welcome}" alt="WIMB mascot"><p class="onboarding-welcome-copy">Small pauses that help you<br>feel more<br>like yourself.</p><button class="onboarding-screen-link" onclick="go('account')" aria-label="Continue"></button>`;
 
-else if(x==='account')h=`<div class="onboarding-logo">WIMB</div><img class="onboarding-mascot onboarding-mascot-medium" src="${journalMascots.gallery}" alt="WIMB mascot"><div class="onboarding-copy-block"><h1>Make this experience yours</h1><p class="copy">Create an account to save your favorite resets and memories.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="go('onintro')">Create account</button><button class="btn alt" onclick="go('onintro')">Log in</button><button class="text" onclick="go('onintro')">Skip for now</button></div>`;
+else if(x==='account')h=`<div class="onboarding-account-mascot"><img src="${onboardingMascots.account}" alt="WIMB mascot"><img class="onboarding-glasses" src="${onboardingMascots.glasses}" alt=""></div><div class="onboarding-copy-block"><h1>Make this experience<br>yours</h1><p class="copy">Create an account to save your favorite resets and<br>memories.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="go('onintro')">Log in</button><button class="btn alt" onclick="go('onintro')">Create account</button><button class="text" onclick="go('onintro')">Skip for now</button></div>`;
 
-else if(x==='onintro')h=`${hdr("go('account')")}<img class="onboarding-mascot onboarding-mascot-intro" src="${journalMascots.calendar}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-intro-copy"><h1>Help us to give you better suggestions</h1><p class="copy">Answer tree short questions about the kind of reset you enjoy.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="S.on=0;
+else if(x==='onintro')h=`${hdr("go('account')")}<div class="onboarding-count">3 Question</div><div class="progress"><i></i><i></i><i></i></div><img class="onboarding-mascot onboarding-mascot-intro" src="${onboardingMascots.intro}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-intro-copy"><h1>Help us to give you better suggestions</h1><p class="copy">Answer tree short questions about the kind of<br>reset you enjoy.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="S.on=0;
 go('onquestion')">Next</button><button class="text" onclick="go('location')">Skip</button></div>`;
 
 else if(x==='onquestion'){let q=qs[S.on],a=S.answers[S.on];
 h=`${hdr("S.on?S.on--,render():go('onintro')")}<div class="onboarding-count">${S.on+1} of 3</div><div class="progress">${qs.map((_,i)=>`<i class="${i<=S.on?'on':''}"></i>`).join('')}</div><h1>${q[0]}</h1><p class="copy">${q[1]}</p><div class="choices">${q[2].map((z,i)=>choice(z,a===z,`S.answers[${S.on}]='${z}';
 render()`,['◷','⌁','⌂','↗','◇'][i])).join('')}</div><div class="footer"><button class="btn" ${!a?'disabled':''} onclick="${S.on<2?'S.on++,render()':"go('location')"}">Next</button></div>`}
-else if(x==='location')h=`${hdr("S.on=2;go('onquestion')")}<div class="onboarding-count">Almost done</div><img class="onboarding-mascot onboarding-mascot-location" src="${journalMascots.calendar}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-location-copy"><h1>Would you like to share your location?</h1><p class="copy">This helps us suggest nearby outdoor reset ideas, such as a short walk or a quiet park.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="go('ondone')">Allow location</button><button class="btn alt" onclick="go('ondone')">Not now</button><small class="onboarding-note">You can change this anytime in Profile settings.</small></div>`;
+else if(x==='location')h=`${hdr("S.on=2;go('onquestion')")}<div class="onboarding-count">Almost done</div><img class="onboarding-mascot onboarding-mascot-location" src="${onboardingMascots.location}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-location-copy"><h1>Would you like to share<br>your location?</h1><p class="copy">This helps us suggest nearby outdoor reset ideas,<br>such as a short walk or a quiet park.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="go('ondone')">Allow location</button><button class="btn alt" onclick="go('ondone')">Not now</button><small class="onboarding-note">You can change this anytime in Profile settings.</small></div>`;
 
-else if(x==='ondone')h=`<img class="onboarding-mascot onboarding-mascot-done" src="${journalMascots.favorites}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-done-copy"><h1>You're all set!</h1><p class="copy">Your Daily Reset will be shaped around<br>your answers.</p></div><div class="onboarding-finish-mark"><i></i><b></b><i></i></div><button class="onboarding-screen-link" onclick="go('home')" aria-label="Continue to home"></button>`;
+else if(x==='ondone')h=`<img class="onboarding-mascot onboarding-mascot-done" src="${onboardingMascots.done}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-done-copy"><h1>You're all set!</h1><p class="copy">Your Daily Reset will be shaped around<br>your answers.</p></div><div class="onboarding-finish-mark"><i></i><b></b><i></i></div><button class="onboarding-screen-link" onclick="go('home')" aria-label="Continue to home"></button>`;
 
 else if(x==='home')h=`${hdr()}<div class="row"><div><span class="ey">your little pause</span><h2>Hi, Lucy.</h2></div><div class="mini"></div></div><button class="hero glass" onclick="go('time')"><span class="ey">find my reset</span><h2>What would feel good now?</h2><p class="copy">A simple suggestion shaped around your moment.</p></button><div class="row"><b>Quick resets</b><button class="text" onclick="go('time')">See all</button></div><div class="grid3"><button class="quick glass" onclick="go('time')">◌<b>Breathe</b><small>5 min</small></button><button class="quick glass" onclick="go('time')">⌁<b>Tea</b><small>15 min</small></button><button class="quick glass" onclick="go('time')">↗<b>Outside</b><small>10 min</small></button></div><button class="card glass row" onclick="go('journal')"><i class="mini"></i><span><b>Make a memory</b><br><small class="muted">Your latest reset: Evening tea</small></span><span>→</span></button>${nav()}`;
 
@@ -1110,6 +1111,7 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
     renderBeforeWimbQuestions();
     if(['welcome','account','onintro','onquestion','location','ondone'].includes(S.screen)){
       document.querySelector('.page')?.classList.add('wimb-onboarding-page');
+      document.querySelector('.page')?.classList.add(`wimb-${S.screen}-page`);
     }
     if(S.screen==='onquestion') document.querySelector('.page')?.classList.add('wimb-question-page');
   };
@@ -2098,6 +2100,7 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
 <style>
   /* Figma onboarding flow 1002:5751. Interaction order is preserved; content and visual hierarchy follow the approved frames. */
   .wimb-onboarding-page{padding:70px 26px 35px;gap:0;background:radial-gradient(circle at -5% 4%,rgba(120,215,232,.24),transparent 31%),radial-gradient(circle at 105% 78%,rgba(246,121,90,.18),transparent 28%),linear-gradient(145deg,#294f57 0%,#1a3d45 54%,#243950 100%)}
+  .wimb-onboarding-page.wimb-welcome-page{padding:0;overflow:hidden}
   .wimb-onboarding-page .top{height:20px;margin:0 0 21px;color:var(--wimb-t100)}
   .wimb-onboarding-page .top .brand,.wimb-onboarding-page .top .muted{display:none}
   .wimb-onboarding-page .back-chevron{display:grid;place-items:center;width:18px;height:18px;padding:0;border:0;background:transparent;color:var(--wimb-t100)}
@@ -2134,12 +2137,61 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   .onboarding-finish-mark{position:absolute;top:727px;left:50%;display:flex;align-items:center;gap:10px;transform:translateX(-50%)}
   .onboarding-finish-mark i{width:24px;height:1px;background:rgba(221,245,251,.35)}
   .onboarding-finish-mark b{width:6px;height:6px;border-radius:50%;background:var(--wimb-o500);opacity:.55}
-  .onboarding-welcome-title{position:absolute;top:114px;left:0;width:100%;font:600 40px/60px "Lora",serif;letter-spacing:-.4px;text-align:center;color:var(--wimb-t50)}
+  .wimb-welcome-page .onboarding-welcome-title{position:absolute;top:114px;left:26px;width:calc(100% - 52px);font:600 40px/60px "Lora",serif;letter-spacing:-.4px;text-align:center;color:var(--wimb-t50)}
   .onboarding-welcome-title span{color:var(--wimb-o400)}.onboarding-welcome-title em{font-style:normal;color:var(--wimb-t400)}
-  .onboarding-mascot-large{position:absolute;top:397px;left:50%;width:210px;height:207px;transform:translateX(-50%)}
-  .onboarding-welcome-copy{position:absolute;top:715px;left:0;width:100%;margin:0;color:var(--wimb-t100);font:400 16px/24px "DM Sans",sans-serif;text-align:center}
-  .onboarding-screen-link{position:absolute;inset:0;z-index:5;border:0;background:transparent;cursor:pointer}
+  .wimb-welcome-page .onboarding-mascot-large{position:absolute;top:397px;left:50%;width:210px;height:207px;transform:translateX(-50%)}
+  .wimb-welcome-page .onboarding-welcome-copy{position:absolute;top:715px;left:26px;width:calc(100% - 52px);margin:0;color:var(--wimb-t100);font:400 16px/24px "DM Sans",sans-serif;text-align:center}
+  .wimb-welcome-page .onboarding-screen-link{position:absolute;inset:0;z-index:5;border:0;background:transparent;cursor:pointer}
   @media(prefers-reduced-motion:reduce){.onboarding-mascot{animation:none!important}}
+</style>
+<style>
+  /* Screenshot-matched onboarding geometry. The approved dark WIMB background is intentionally preserved. */
+  .page.wimb-account-page,.page.wimb-onintro-page,.page.wimb-onquestion-page,.page.wimb-location-page,.page.wimb-ondone-page{padding:0;overflow:hidden}
+  .wimb-onintro-page .top,.wimb-onquestion-page .top,.wimb-location-page .top{position:absolute;top:70px;left:26px;width:350px;height:20px;margin:0}
+  .wimb-onintro-page .onboarding-count,.wimb-onquestion-page .onboarding-count,.wimb-location-page .onboarding-count{position:absolute;top:70px;left:50%;transform:translateX(-50%)}
+  .wimb-onintro-page .progress,.wimb-onquestion-page .progress{position:absolute;top:110px;left:26px;width:350px;height:4px;margin:0}
+
+  .wimb-account-page .onboarding-account-mascot{position:absolute;top:178px;left:50%;width:150px;height:148px;transform:translateX(-50%)}
+  .wimb-account-page .onboarding-account-mascot>img:first-child{position:absolute;top:5px;left:4px;width:142px;height:140px}
+  .wimb-account-page .onboarding-glasses{position:absolute;top:70px;left:19px;width:112px;height:27px}
+  .wimb-account-page .onboarding-copy-block{position:absolute;top:437px;left:26px;width:350px;text-align:left}
+  .wimb-account-page .onboarding-copy-block h1{margin:0}
+  .wimb-account-page .onboarding-copy-block .copy{margin-top:14px;font-size:13px;line-height:18px}
+  .wimb-account-page .footer{position:absolute;top:683px;bottom:auto;left:23px;right:auto;width:355px;gap:13px}
+  .page.wimb-account-page .footer{padding:0}
+  .page.wimb-account-page .footer .btn{height:44px;min-height:44px}
+  .wimb-account-page .footer .text{height:43px;color:var(--wimb-t100);text-decoration:underline;text-underline-offset:3px}
+
+  .wimb-onintro-page .onboarding-mascot-intro{position:absolute;top:207px;left:50%;width:147px;height:148px;transform:translateX(-50%)}
+  .wimb-onintro-page .onboarding-intro-copy{position:absolute;top:437px;left:26px;width:350px;text-align:left}
+  .wimb-onintro-page .onboarding-intro-copy .copy{margin-top:14px;font-size:13px;line-height:18px}
+  .wimb-onintro-page .footer{position:absolute;top:742px;bottom:auto;left:23px;right:auto;width:355px;gap:13px}
+  .page.wimb-onintro-page .footer{padding:0}
+  .page.wimb-onintro-page .footer .btn{height:44px;min-height:44px}
+  .wimb-onintro-page .footer .text{height:43px;text-decoration:underline;text-underline-offset:3px}
+
+  .page.wimb-onquestion-page>h1{position:absolute;top:157px;left:26px;width:350px;margin:0}
+  .page.wimb-onquestion-page>.copy{position:absolute;top:233px;left:26px;width:350px;margin:0!important;font-size:14px;line-height:24px}
+  .page.wimb-onquestion-page .choices{position:absolute;top:289px;left:26px;width:350px;margin:0!important;gap:20px}
+  .wimb-onquestion-page .choice{width:350px;height:56px;min-height:56px}
+  .wimb-onquestion-page .footer{position:absolute;top:742px;bottom:auto;left:26px;right:auto;width:349px}
+  .page.wimb-onquestion-page .footer{padding:0}
+  .page.wimb-onquestion-page .footer .btn{height:44px;min-height:44px}
+
+  .wimb-location-page .onboarding-mascot-location{position:absolute;top:174px;left:50%;width:150px;height:148px;transform:translateX(-50%)}
+  .wimb-location-page .onboarding-location-copy{position:absolute;top:416px;left:26px;width:350px;text-align:center}
+  .wimb-location-page .onboarding-location-copy .copy{margin-top:14px;font-size:13px;line-height:18px}
+  .wimb-location-page .footer{position:absolute;top:685px;bottom:auto;left:26px;right:auto;width:349px;gap:13px}
+  .page.wimb-location-page .footer{padding:0}
+  .page.wimb-location-page .footer .btn{height:44px;min-height:44px}
+  .wimb-location-page .onboarding-note{height:36px;padding-top:5px}
+
+  .wimb-ondone-page .onboarding-mascot-done{position:absolute;top:187px;left:50%;width:210px;height:207px;transform:translateX(-50%)}
+  .wimb-ondone-page .onboarding-done-copy{position:absolute;top:531px;left:26px;width:350px;text-align:center}
+  .wimb-ondone-page .onboarding-done-copy h1{font-size:32px;line-height:32px}
+  .wimb-ondone-page .onboarding-done-copy .copy{margin-top:20px;font-size:14px;line-height:24px}
+  .wimb-ondone-page .onboarding-finish-mark{position:absolute;top:727px;left:50%;transform:translateX(-50%)}
+  .wimb-ondone-page .onboarding-screen-link{position:absolute;inset:0;z-index:5;border:0;background:transparent;cursor:pointer}
 </style>
 </body></html>
 
