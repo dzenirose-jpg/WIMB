@@ -1595,6 +1595,10 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   function navigateFromNav(route,tabId,event){
     const navEl=event.currentTarget.closest('.nav');
     if(!navEl)return;
+    if(tabId==='camera'){
+      openNavCamera();
+      return;
+    }
     const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(reduce){S.activeTab=tabId;go(route);return;}
     const indicator=navEl.querySelector('.nav-active-indicator');
@@ -1616,7 +1620,7 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   requestAnimationFrame(()=>wimbSyncNav(document.querySelector('.nav')));
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 
   /* WIMB uses only two type families: Lora for titles and DM Sans everywhere else. */
   #root,#root button,#root input,#root textarea,#root select,#root label,#root p,#root span,#root small{
@@ -1767,5 +1771,212 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   .reset-ready .reset-card h2{font-size:24px!important}
   @media(prefers-reduced-motion:reduce){.duration-wheel-item{transition:none}.duration-wheel{scroll-behavior:auto}}
 </style>
+<style>
+  .camera-overlay{position:absolute;inset:0;z-index:60;display:grid;align-items:end;background:rgba(6,19,21,.72);font-family:"DM Sans",Arial,sans-serif}
+  .camera-sheet{position:relative;display:flex;min-height:74%;flex-direction:column;padding:18px 20px 35px;border:1px solid rgba(183,235,246,.38);border-radius:26px 26px 0 0;background:linear-gradient(145deg,rgba(26,55,60,.97),rgba(13,32,36,.97) 55%,rgba(41,0,85,.91));box-shadow:inset 1px 1px rgba(221,245,251,.22),0 -18px 40px rgba(0,0,0,.28)}
+  .camera-head{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;margin-bottom:16px}.camera-head h2{margin:0;color:var(--wimb-t50);font:600 20px/1.3 "Lora",serif;text-align:center}.camera-close{width:38px;height:38px;border:1px solid rgba(183,235,246,.34);border-radius:50%;background:rgba(120,215,232,.08);color:var(--wimb-t50);font-size:22px}
+  .camera-stage{position:relative;display:grid;place-items:center;flex:1;min-height:330px;overflow:hidden;border:1px solid rgba(183,235,246,.34);border-radius:20px;background:#061315}
+  .camera-stage video,.camera-stage .camera-preview{display:block;width:100%;height:100%;min-height:330px;object-fit:cover}.camera-stage video{transform:translateZ(0)}
+  .camera-fallback{display:grid;place-items:center;align-content:center;gap:10px;padding:28px;color:var(--wimb-t100);text-align:center}.camera-fallback strong{color:var(--wimb-t50);font-size:15px}.camera-fallback input{position:absolute;width:1px;height:1px;opacity:0}.camera-fallback-button,.camera-capture{border:0;background:linear-gradient(105deg,var(--wimb-o400),var(--wimb-o500));color:#fff;font-weight:700;box-shadow:0 9px 18px rgba(227,92,46,.24)}
+  .camera-fallback-button{display:grid;place-items:center;min-width:150px;height:48px;border-radius:24px;cursor:pointer}.camera-capture{width:64px;height:64px;margin:18px auto 0;border:5px solid rgba(254,241,239,.78);border-radius:50%;font-size:0}
+  .camera-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:18px}.camera-actions button{height:48px;border:1px solid rgba(183,235,246,.34);border-radius:24px;background:rgba(120,215,232,.09);color:var(--wimb-t50);font-weight:700}.camera-actions .camera-save{border-color:transparent;background:linear-gradient(105deg,var(--wimb-o400),var(--wimb-o500));color:#fff}
+  .camera-note{display:block;margin-top:16px;padding:14px;border:1px solid rgba(183,235,246,.30);border-radius:16px;background:rgba(120,215,232,.07);color:var(--wimb-t200);font-size:11px;font-weight:700;letter-spacing:.06em}.camera-note[hidden]{display:none}.camera-note textarea{display:block;box-sizing:border-box;width:100%;height:74px;margin-top:9px;padding:0;resize:none;border:0;outline:0;background:transparent;color:var(--wimb-t50);font:14px/1.45 "DM Sans",Arial,sans-serif}.camera-note textarea::placeholder{color:rgba(221,245,251,.56)}
+  .camera-memory{position:relative}.camera-memory .camera-memory-meta{position:absolute;right:10px;bottom:10px;left:10px;padding:8px 10px;border-radius:12px;background:rgba(6,19,21,.62);color:var(--wimb-t50);font-size:11px;text-align:left;backdrop-filter:blur(7px)}
+  @media(prefers-reduced-motion:reduce){.camera-overlay,.camera-sheet{animation:none!important}}
+</style>
+<script>
+  let navCameraStream=null,navCameraRequest=0;
+  function cameraOverlay(){return document.querySelector('.camera-overlay')}
+  function stopNavCamera(){
+    if(navCameraStream){navCameraStream.getTracks().forEach(track=>track.stop());navCameraStream=null}
+    const video=document.querySelector('.camera-stage video');if(video)video.srcObject=null;
+  }
+  function cameraFallbackMarkup(){return `<label class="camera-fallback"><strong>Open your device camera</strong><span>Camera access is unavailable here. Choose the camera below.</span><span class="camera-fallback-button">Take photo</span><input type="file" accept="image/*" capture="environment" aria-label="Take photo"></label>`}
+  function openNavCamera(){
+    closeNavCamera();
+    S.cameraPhoto='';S.cameraNote='';S.cameraNoteOpen=false;
+    const overlay=document.createElement('div');overlay.className='camera-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Camera capture');
+    overlay.innerHTML=`<section class="camera-sheet"><header class="camera-head"><button class="camera-close" data-camera-action="close" aria-label="Cancel camera">×</button><h2>Capture a moment</h2><span></span></header><div class="camera-stage"><video autoplay playsinline muted aria-label="Live camera view"></video></div><button class="camera-capture" data-camera-action="capture" aria-label="Take photo">Take photo</button></section>`;
+    overlay.addEventListener('click',event=>{
+      const control=event.target.closest('[data-camera-action]');if(!control)return;
+      const actions={close:closeNavCamera,capture:captureNavCamera,note:openNavCameraNote,again:againNavCamera,save:saveNavCameraMemory};
+      actions[control.dataset.cameraAction]?.();
+    });
+    overlay.addEventListener('change',event=>{if(event.target.matches('input[type="file"]'))navCameraFileSelected(event.target)});
+    document.querySelector('.app').appendChild(overlay);
+    startNavCamera();
+  }
+  async function startNavCamera(){
+    stopNavCamera();
+    const requestId=++navCameraRequest;
+    const stage=document.querySelector('.camera-stage');if(!stage)return;
+    stage.innerHTML='<video autoplay playsinline muted aria-label="Live camera view"></video>';
+    const capture=document.querySelector('.camera-capture');if(capture)capture.hidden=false;
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){stage.innerHTML=cameraFallbackMarkup();if(capture)capture.hidden=true;return}
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+      if(requestId!==navCameraRequest||!cameraOverlay()){stream.getTracks().forEach(track=>track.stop());return}
+      navCameraStream=stream;
+      const video=stage.querySelector('video');if(!video){stopNavCamera();return}video.srcObject=navCameraStream;
+      await Promise.race([video.play().catch(()=>{}),new Promise(resolve=>setTimeout(resolve,2500))]);
+      if(!video.videoWidth)throw new Error('Camera preview unavailable');
+    }catch(error){stopNavCamera();stage.innerHTML=cameraFallbackMarkup();if(capture)capture.hidden=true}
+  }
+  function captureNavCamera(){
+    const video=document.querySelector('.camera-stage video');if(!video||!video.videoWidth)return;
+    const canvas=document.createElement('canvas');canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);S.cameraPhoto=canvas.toDataURL('image/jpeg',.9);stopNavCamera();showNavCameraPreview();
+  }
+  function navCameraFileSelected(input){
+    const file=input.files&&input.files[0];if(!file)return;
+    const reader=new FileReader();reader.onload=event=>{S.cameraPhoto=event.target.result;showNavCameraPreview()};reader.readAsDataURL(file);
+  }
+  function showNavCameraPreview(){
+    stopNavCamera();const sheet=document.querySelector('.camera-sheet');if(!sheet||!S.cameraPhoto)return;
+    sheet.innerHTML=`<header class="camera-head"><button class="camera-close" data-camera-action="close" aria-label="Cancel camera">×</button><h2>Your moment</h2><span></span></header><div class="camera-stage"><img class="camera-preview" src="${S.cameraPhoto}" alt="Captured moment"></div><label class="camera-note" ${S.cameraNoteOpen?'':'hidden'}>HOW DID THIS MOMENT MAKE YOU FEEL?<textarea placeholder="How did this moment make you feel?">${esc(S.cameraNote||'')}</textarea></label><div class="camera-actions"><button class="camera-save" data-camera-action="save">Save</button><button data-camera-action="note">Add note</button><button data-camera-action="again">Again</button></div>`;
+    const note=sheet.querySelector('textarea');if(note)note.addEventListener('input',event=>{S.cameraNote=event.target.value});
+    if(S.cameraNoteOpen)requestAnimationFrame(()=>sheet.querySelector('textarea')?.focus());
+  }
+  function openNavCameraNote(){S.cameraNoteOpen=true;showNavCameraPreview()}
+  function againNavCamera(){S.cameraPhoto='';S.cameraNote='';S.cameraNoteOpen=false;const sheet=document.querySelector('.camera-sheet');if(!sheet)return;sheet.innerHTML=`<header class="camera-head"><button class="camera-close" data-camera-action="close" aria-label="Cancel camera">×</button><h2>Capture a moment</h2><span></span></header><div class="camera-stage"><video autoplay playsinline muted aria-label="Live camera view"></video></div><button class="camera-capture" data-camera-action="capture" aria-label="Take photo">Take photo</button>`;startNavCamera()}
+  function saveNavCameraMemory(){
+    if(!S.cameraPhoto)return;
+    const now=new Date(),activity=S.time?'Tea & Breathe':'A mindful moment';
+    S.memories.unshift({name:activity,reset:activity,date:'Today',dateTime:now.toISOString(),duration:S.time||'',note:(S.cameraNote||'').trim(),photo:S.cameraPhoto});
+    closeNavCamera();toast('Saved to your Journal');if(S.screen==='journal'&&S.journal==='gallery')render();
+  }
+  function closeNavCamera(){navCameraRequest++;stopNavCamera();const overlay=cameraOverlay();if(overlay)overlay.remove();S.cameraPhoto='';S.cameraNote='';S.cameraNoteOpen=false}
+  Object.assign(window,{openNavCamera,closeNavCamera,captureNavCamera,navCameraFileSelected,openNavCameraNote,againNavCamera,saveNavCameraMemory});
+  window.addEventListener('pagehide',stopNavCamera);
+  const cameraGalleryBefore=render;
+  render=function(){
+    cameraGalleryBefore();
+    if(S.screen!=='journal'||S.journal!=='gallery')return;
+    const gallery=document.querySelector('.journal-gallery');if(!gallery)return;
+    const captured=S.memories.filter(memory=>memory.photo);if(!captured.length)return;
+    const tabs=gallery.querySelector('.tabs');if(!tabs)return;
+    const group=document.createElement('section');group.className='gallery-group camera-gallery-group';
+    group.innerHTML=`<div class="gallery-label">CAPTURED MOMENTS</div><div class="masonry"><div class="masonry-col">${captured.filter((_,i)=>i%2===0).map(memory=>`<div class="gallery-photo medium camera-memory"><img src="${memory.photo}" alt="${esc(memory.name||'Journal memory')}"><span class="camera-memory-meta">${esc(memory.note||memory.name||'Journal memory')}</span></div>`).join('')}</div><div class="masonry-col">${captured.filter((_,i)=>i%2===1).map(memory=>`<div class="gallery-photo medium camera-memory"><img src="${memory.photo}" alt="${esc(memory.name||'Journal memory')}"><span class="camera-memory-meta">${esc(memory.note||memory.name||'Journal memory')}</span></div>`).join('')}</div></div>`;
+    tabs.insertAdjacentElement('afterend',group);
+  };
+  render();
+</script>
+<style>
+  /* Approved action-button color update: mascot Orange 300 with controlled Liquid Glass depth. Navigation is intentionally excluded. */
+  .btn:not(.alt),
+  .home-ref .start,
+  .flow-primary,
+  .wimb-question-page .footer .btn:not(.alt),
+  .camera-fallback-button,
+  .camera-capture,
+  .camera-actions .camera-save,
+  #root .cal-activity .activity-action,
+  .memory-detail .memory-reset-card .activity-action{
+    background:
+      linear-gradient(112deg,rgba(248,159,143,.88),rgba(246,121,90,.79) 52%,rgba(227,92,46,.68)),
+      radial-gradient(ellipse at 28% 16%,rgba(255,255,255,.62),transparent 39%),
+      radial-gradient(ellipse at 82% 82%,rgba(248,159,143,.26),transparent 55%)!important;
+    border-color:rgba(254,241,239,.58)!important;
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,.55),
+      inset 0 -7px 12px rgba(106,37,25,.18),
+      0 4px 12px rgba(227,92,46,.25),
+      0 0 13px rgba(248,159,143,.14)!important;
+  }
+  .btn:not(.alt),.home-ref .start,.flow-primary,.wimb-question-page .footer .btn:not(.alt),.camera-fallback-button,.camera-capture,.camera-actions .camera-save{color:#fff!important}
+  .btn:not(.alt),.flow-primary,.wimb-question-page .footer .btn:not(.alt),.camera-fallback-button,.camera-capture,.camera-actions .camera-save,#root .cal-activity .activity-action,.memory-detail .memory-reset-card .activity-action{position:relative;isolation:isolate;overflow:hidden}
+  .btn:not(.alt):after,.flow-primary:after,.wimb-question-page .footer .btn:not(.alt):after,.camera-fallback-button:after,.camera-capture:after,.camera-actions .camera-save:after,#root .cal-activity .activity-action:after,.memory-detail .memory-reset-card .activity-action:after{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    top:2px;
+    right:9%;
+    left:6%;
+    height:42%;
+    border-radius:50%;
+    background:linear-gradient(110deg,rgba(255,255,255,.45),rgba(255,255,255,0));
+    opacity:.72;
+    pointer-events:none;
+  }
+
+  /* Home Start only: the same layered Liquid Glass character as the navigation indicator. */
+  .home-ref .start{
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    background:
+      linear-gradient(112deg,rgba(248,159,143,.88),rgba(246,121,90,.79) 52%,rgba(227,92,46,.68)),
+      radial-gradient(ellipse at 28% 16%,rgba(255,255,255,.62),transparent 39%),
+      radial-gradient(ellipse at 82% 82%,rgba(248,159,143,.26),transparent 55%)!important;
+    border:1px solid rgba(255,232,219,.56)!important;
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,.55),
+      inset 0 -7px 12px rgba(106,37,25,.18),
+      0 4px 12px rgba(227,92,46,.25),
+      0 0 13px rgba(248,159,143,.14)!important;
+  }
+  .home-ref .start:after{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    top:2px;
+    right:9%;
+    left:6%;
+    height:42%;
+    border-radius:50%;
+    background:linear-gradient(110deg,rgba(255,255,255,.45),rgba(255,255,255,0));
+    opacity:.72;
+    pointer-events:none;
+  }
+  #root .reset-reflection .reflection-feedback{
+    font-family:"Lora",serif!important;
+    font-style:italic;
+    font-weight:400;
+  }
+  /* Readability rule: glass refraction stays behind all card content. */
+  .glass{isolation:isolate}
+  .glass:after{z-index:0}
+  .glass>*{position:relative;z-index:1}
+  .home-ref .quick b,.home-ref .quick small{opacity:1;filter:none;text-shadow:none}
+</style>
+<script>
+  /* Quick Resets bypass the questionnaire and open a focused suggestion without progress UI. */
+  const quickResetContent={
+    tea:{title:'Tea & Breathe',duration:'15 minutes',description:'A quiet moment to slow down and recharge.',steps:['Make a warm drink you enjoy.','Sit somewhere comfortable.','Take five slow breaths.','Notice one small thing that feels good.']},
+    exercise:{title:'Gentle Movement',duration:'10 minutes',description:'A short movement break to wake up your body and restore your energy.',steps:['Stand tall and relax your shoulders.','Roll your shoulders slowly five times in each direction.','March gently in place for one minute.','Stretch both arms overhead, then release slowly.']},
+    breathe:{title:'Calm Breathing',duration:'5 minutes',description:'A simple breathing pause to help your mind and body settle.',steps:['Sit comfortably and soften your shoulders.','Breathe in slowly through your nose for four counts.','Breathe out gently for six counts.','Repeat the slow breathing cycle five times.']}
+  };
+  function openQuickReset(kind){S.quickReset=kind;S.screen='quickready';render()}
+  function quickResetHeader(back,title){return `<div class="reset-top"><button class="reset-back" aria-label="Back" onclick="${back}">‹</button><span class="reset-count">${title}</span><span></span></div>`}
+  const renderBeforeQuickResets=render;
+  render=function(){
+    const x=S.screen;
+    if(x==='quickready'||x==='quickinstructions'){
+      const item=quickResetContent[S.quickReset]||quickResetContent.tea;
+      let body='';
+      if(x==='quickready'){
+        body=`<div class="reset-ready quick-reset-ready">${quickResetHeader("go('home')",item.title)}<h1>Your Reset is ready</h1><div class="reset-art"><i class="reset-steam"></i><i class="reset-branches"></i></div><section class="reset-card"><span class="reset-kicker">quick reset</span><h2>${item.title}</h2><p>${item.description}</p><span class="duration">${item.duration}</span></section><div class="flow-actions"><button class="flow-primary" onclick="go('quickinstructions')">Start</button><button class="flow-secondary" onclick="go('home')">Try another</button></div></div>`;
+      }else{
+        body=`${quickResetHeader("go('quickready')",item.title)}<span class="reset-kicker">your reset</span><h1>${S.quickReset==='exercise'?'Move your body<br>with care.':S.quickReset==='breathe'?'Breathe slowly<br>and settle in.':'Take this moment<br>for yourself.'}</h1><p class="flow-copy">Move through these steps slowly, at your own pace.</p><div class="instruction-panel">${item.steps.map(t=>`<div class="instruction"><span>${t}</span></div>`).join('')}</div><p class="instruction-support">Take this moment for yourself.</p><div class="instruction-breath-zone"><div class="instruction-breath" aria-label="Animated WIMB reset mascot" role="img"><img src="${journalMascots.calendar}" alt=""></div></div><div class="flow-actions"><button class="flow-primary" onclick="go('reflection')">Finish</button><button class="flow-link" onclick="go('home')">Skip</button></div>`;
+      }
+      $('#root').innerHTML=`<section class="reset-screen reset-${x} ${x==='quickinstructions'?'reset-instructions':''}">${body}</section>`;
+      return;
+    }
+    renderBeforeQuickResets();
+    if(S.screen==='home'){
+      const mainStart=document.querySelector('.home-ref .start');
+      if(mainStart)mainStart.onclick=()=>{S.quickReset='';go('time')};
+      const cards=document.querySelectorAll('.home-ref .quick');
+      if(cards[0])cards[0].onclick=()=>openQuickReset('tea');
+      if(cards[1])cards[1].onclick=()=>openQuickReset('exercise');
+      if(cards[2])cards[2].onclick=()=>openQuickReset('breathe');
+    }
+    if(S.screen==='reflection'&&S.quickReset){
+      const back=document.querySelector('.reset-back');
+      if(back)back.onclick=()=>go('quickinstructions');
+    }
+  };
+  Object.assign(window,{openQuickReset});
+  render();
+</script>
 </body></html>
 

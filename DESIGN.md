@@ -16,6 +16,7 @@ This document records the approved and verified WIMB (Where is My Break?) design
 ## Typography
 
 - Use **Lora** for headlines, headings, and card titles.
+- Reflection feedback shown below the primary action uses **Lora Italic**.
 - Use **DM Sans** for body text, supporting text, buttons, labels, inputs, navigation, captions, and metadata.
 - Different heading levels may use different sizes when they communicate a clear hierarchy.
 - Do not assume every Lora heading is 28px.
@@ -96,7 +97,9 @@ Complete tokens for body text, labels, metadata, buttons, and navigation are not
 
 ### Color usage rules
 
-- Orange is currently used for primary actions and active emphasis.
+- All primary action buttons use the approved darker orange Liquid Glass treatment built from Orange 300 (`#F89F8F`), Orange 400 (`#F6795A`), and Orange 500 (`#E35C2E`). This treatment uses only orange shades with a controlled white glass highlight; do not introduce purple into primary action buttons.
+- Compact action controls inside cards, including **View Activity**, use the same darker orange Liquid Glass treatment as primary action buttons.
+- The Navigation Bar keeps its existing approved colors and active-indicator treatment; the Orange 300 button update does not apply to it.
 - Dark Turquoise is currently used for the main atmospheric background.
 - Purple and Turquoise are used for selected surfaces and atmospheric accents.
 - Exact semantic assignments for every shade are not yet fully approved.
@@ -128,6 +131,7 @@ Connected screens must use consistent alignment, spacing, safe-area treatment, s
 - The current WIMB logo and brand mark
 - Clear, readable content remains more important than blur, glow, or decoration.
 - Glass effects must remain controlled and must not make text or interactions difficult to read.
+- All text and interactive content inside Liquid Glass components must render above the glass reflection and blur layers. Text must remain fully opaque and sharp; blur and refraction belong only to the component background.
 - Nature imagery and illustrations may support a Reset result and related moments, but must not be added arbitrarily to every screen.
 
 ## Components and consistency
