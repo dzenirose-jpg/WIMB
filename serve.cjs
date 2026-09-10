@@ -2,10 +2,10 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const appFile = path.join(__dirname, 'wireframe.html');
+const appFile = path.join(__dirname, 'index.html');
 http.createServer((request, response) => {
   const requestPath = decodeURIComponent(new URL(request.url, 'http://127.0.0.1').pathname);
-  const relativePath = requestPath === '/' ? 'wireframe.html' : requestPath.replace(/^\/+/, '');
+  const relativePath = requestPath === '/' ? 'index.html' : requestPath.replace(/^\/+/, '');
   const requestedFile = path.resolve(__dirname, relativePath);
   const isInsideProject = requestedFile === path.resolve(__dirname) || requestedFile.startsWith(`${path.resolve(__dirname)}${path.sep}`);
   const filePath = isInsideProject ? requestedFile : appFile;

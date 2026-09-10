@@ -252,30 +252,29 @@ overflow:hidden}.app{width:100%;
 height:100dvh;
 max-height:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important}}
 </style><body><main class="app"><div class="toast" id="toast"></div><div id="root"></div></main><script>
-const S={screen:location.hash==='#journal'?'journal':'home',on:0,answers:[],time:'',mood:'',journal:'gallery',memories:[{name:'Evening tea',date:'Today',note:'A warm pause after work.'},{name:'Slow bike ride',date:'26 August',note:'30 minutes outside.'}],saved:false};
+const S={screen:location.hash==='#journal'?'journal':'welcome',on:0,answers:[],time:'',mood:'',journal:'gallery',memories:[{name:'Evening tea',date:'Today',note:'A warm pause after work.'},{name:'Slow bike ride',date:'26 August',note:'30 minutes outside.'}],saved:false};
 const $=s=>document.querySelector(s);
 const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function toast(t){let e=$('#toast');
 e.textContent=t;
 e.classList.add('show');
 setTimeout(()=>e.classList.remove('show'),2200)}function go(x){S.screen=x;
-render()}function hdr(back=''){return `<div class="top">${back?`<button class="back-chevron" aria-label="Back" onclick="${back}">‹</button>`:'<span class="top-spacer"></span>'}<div class="brand"><i class="mark"></i>Soft Reset</div><span class="muted">${S.screen==='home'?'Good evening':'01:24'}</span></div>`}function nav(on='home'){return `<nav class="nav glass"><button class="${on==='home'?'on':''}" onclick="go('home')">⌂</button><button class="${on==='journal'?'on':''}" onclick="go('journal')">◫</button><button class="${on==='profile'?'on':''}" onclick="go('profile')">◯</button></nav>`}function choice(a,sel,fn,i='◌'){return `<button class="choice glass ${sel?'sel':''}" onclick="${fn}"><i>${i}</i>${a}</button>`}const qs=[['When do you usually need a Reset?','Choose the moment that feels most familiar.',['After work','During a break','In the evening','It changes every day']],['How much time do you usually have?','You can always choose a different time later.',['Around 10 minutes','Around 20 minutes','30 minutes or more','It depends on my day']],['Where do you prefer to Reset?','Choose the place that feels best for you.',['At home','Outside','At work','Anywhere']],['What helps you feel better?','Choose one activity style you enjoy.',['A quiet moment','Moving my body','Fresh air','Doing something creative']],['What would you like more of in your day?','Your answer helps shape your Daily Reset.',['More calm','More energy','More focus','More time for myself']]];
+render()}function hdr(back=''){return `<div class="top">${back?`<button class="back-chevron" aria-label="Back" onclick="${back}">‹</button>`:'<span class="top-spacer"></span>'}<div class="brand"><i class="mark"></i>Soft Reset</div><span class="muted">${S.screen==='home'?'Good evening':'01:24'}</span></div>`}function nav(on='home'){return `<nav class="nav glass"><button class="${on==='home'?'on':''}" onclick="go('home')">⌂</button><button class="${on==='journal'?'on':''}" onclick="go('journal')">◫</button><button class="${on==='profile'?'on':''}" onclick="go('profile')">◯</button></nav>`}function choice(a,sel,fn,i='◌'){return `<button class="choice glass ${sel?'sel':''}" onclick="${fn}"><i>${i}</i>${a}</button>`}const qs=[['When do you usually need a Reset?','Choose the moment that feels most familiar.',['In the morning','In the evening','During a brake','After work','It changes every day']],['Where do you prefer to Reset?','Choose the place that feels best for you.',['At home','Outside','At work','Anywhere']],['What would you like more of in your day?','Choose what fits your needs.',['More calm','More energy','More focus','More time for myself']]];
 
 function render(){let x=S.screen,h='';
-if(x==='welcome')h=`${hdr()}<div style="margin-top:55px"><span class="ey">a quiet way back</span><h1 style="margin:14px 0">Let the day soften around you.</h1><p class="copy">Small pauses that help you feel more like yourself.</p><div class="art" style="margin-top:28px"></div></div><div class="footer"><button class="btn" onclick="go('account')">Get started →</button><button class="text" onclick="go('account')">I already have an account</button></div>`;
+if(x==='welcome')h=`<div class="onboarding-welcome-title">Welcome to<br><span>Where</span> is<br><em>My Break</em>?</div><img class="onboarding-mascot onboarding-mascot-large" src="${journalMascots.gallery}" alt="WIMB mascot"><p class="onboarding-welcome-copy">Small pauses that help you<br>feel more<br>like yourself.</p><button class="onboarding-screen-link" onclick="go('account')" aria-label="Continue"></button>`;
 
-else if(x==='account')h=`${hdr("go('welcome')")}<div style="margin-top:55px"><span class="ey">make this yours</span><h1 style="margin:14px 0">Your reset, saved with you.</h1><p class="copy">Create an account to save your favourite resets and memories.</p></div><div class="footer"><button class="btn" onclick="go('onintro')">Create account</button><button class="btn alt" onclick="go('onintro')">Log in</button><button class="text" onclick="go('onintro')">Skip for now</button></div>`;
+else if(x==='account')h=`<div class="onboarding-logo">WIMB</div><img class="onboarding-mascot onboarding-mascot-medium" src="${journalMascots.gallery}" alt="WIMB mascot"><div class="onboarding-copy-block"><h1>Make this experience yours</h1><p class="copy">Create an account to save your favorite resets and memories.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="go('onintro')">Create account</button><button class="btn alt" onclick="go('onintro')">Log in</button><button class="text" onclick="go('onintro')">Skip for now</button></div>`;
 
-else if(x==='onintro')h=`${hdr("go('account')")}<div style="margin-top:65px"><span class="ey">five questions</span><h1 style="margin:14px 0">Help us make better suggestions.</h1><p class="copy">Tell us a little about the kind of reset that suits you.</p><div class="art" style="margin-top:30px"></div></div><div class="footer"><button class="btn" onclick="S.on=0;
-go('onquestion')">Next →</button><button class="text" onclick="go('location')">Skip</button></div>`;
+else if(x==='onintro')h=`${hdr("go('account')")}<img class="onboarding-mascot onboarding-mascot-intro" src="${journalMascots.calendar}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-intro-copy"><h1>Help us to give you better suggestions</h1><p class="copy">Answer tree short questions about the kind of reset you enjoy.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="S.on=0;
+go('onquestion')">Next</button><button class="text" onclick="go('location')">Skip</button></div>`;
 
 else if(x==='onquestion'){let q=qs[S.on],a=S.answers[S.on];
-h=`${hdr("S.on?S.on--,render():go('onintro')")}<div class="progress">${qs.map((_,i)=>`<i class="${i<=S.on?'on':''}"></i>`).join('')}</div><span class="ey">${S.on+1} of 5</span><h1>${q[0]}</h1><p class="copy">${q[1]}</p><div class="choices">${q[2].map((z,i)=>choice(z,a===z,`S.answers[${S.on}]='${z}';
-render()`,['◷','⌁','⌂','↗'][i])).join('')}</div><div class="footer"><button class="btn" ${!a?'disabled':''} onclick="${S.on<4?'S.on++,render()':"go('location')"}">Next →</button></div>`}
-else if(x==='location')h=`${hdr("go('onquestion')")}<div style="margin-top:60px"><span class="ey">almost done</span><h1 style="margin:14px 0">Would you like to share your location?</h1><p class="copy">This helps us suggest a nearby walk, quiet park, or fresh-air reset.</p><div class="art" style="margin-top:28px"></div></div><div class="footer"><button class="btn" onclick="go('ondone')">Allow location</button><button class="btn alt" onclick="go('ondone')">Not now</button><small class="muted" style="text-align:center">You can change this anytime in Profile settings.</small></div>`;
+h=`${hdr("S.on?S.on--,render():go('onintro')")}<div class="onboarding-count">${S.on+1} of 3</div><div class="progress">${qs.map((_,i)=>`<i class="${i<=S.on?'on':''}"></i>`).join('')}</div><h1>${q[0]}</h1><p class="copy">${q[1]}</p><div class="choices">${q[2].map((z,i)=>choice(z,a===z,`S.answers[${S.on}]='${z}';
+render()`,['◷','⌁','⌂','↗','◇'][i])).join('')}</div><div class="footer"><button class="btn" ${!a?'disabled':''} onclick="${S.on<2?'S.on++,render()':"go('location')"}">Next</button></div>`}
+else if(x==='location')h=`${hdr("S.on=2;go('onquestion')")}<div class="onboarding-count">Almost done</div><img class="onboarding-mascot onboarding-mascot-location" src="${journalMascots.calendar}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-location-copy"><h1>Would you like to share your location?</h1><p class="copy">This helps us suggest nearby outdoor reset ideas, such as a short walk or a quiet park.</p></div><div class="footer onboarding-actions"><button class="btn" onclick="go('ondone')">Allow location</button><button class="btn alt" onclick="go('ondone')">Not now</button><small class="onboarding-note">You can change this anytime in Profile settings.</small></div>`;
 
-else if(x==='ondone')h=`${hdr()}<div style="margin-top:100px;
-text-align:center"><div class="big">✦</div><span class="ey">you’re all set</span><h1 style="margin:14px 0">Your daily reset is ready to take shape.</h1><p class="copy" style="margin:auto">Your answers will guide every suggestion.</p></div><div class="footer"><button class="btn" onclick="go('home')">Find my reset →</button></div>`;
+else if(x==='ondone')h=`<img class="onboarding-mascot onboarding-mascot-done" src="${journalMascots.favorites}" alt="WIMB mascot"><div class="onboarding-copy-block onboarding-done-copy"><h1>You're all set!</h1><p class="copy">Your Daily Reset will be shaped around<br>your answers.</p></div><div class="onboarding-finish-mark"><i></i><b></b><i></i></div><button class="onboarding-screen-link" onclick="go('home')" aria-label="Continue to home"></button>`;
 
 else if(x==='home')h=`${hdr()}<div class="row"><div><span class="ey">your little pause</span><h2>Hi, Lucy.</h2></div><div class="mini"></div></div><button class="hero glass" onclick="go('time')"><span class="ey">find my reset</span><h2>What would feel good now?</h2><p class="copy">A simple suggestion shaped around your moment.</p></button><div class="row"><b>Quick resets</b><button class="text" onclick="go('time')">See all</button></div><div class="grid3"><button class="quick glass" onclick="go('time')">◌<b>Breathe</b><small>5 min</small></button><button class="quick glass" onclick="go('time')">⌁<b>Tea</b><small>15 min</small></button><button class="quick glass" onclick="go('time')">↗<b>Outside</b><small>10 min</small></button></div><button class="card glass row" onclick="go('journal')"><i class="mini"></i><span><b>Make a memory</b><br><small class="muted">Your latest reset: Evening tea</small></span><span>→</span></button>${nav()}`;
 
@@ -751,7 +750,7 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   const renderBeforeProfile=render;
   render=function(){
     if(S.screen!=='profile')return renderBeforeProfile();
-    $('#root').innerHTML=`<section class="profile-page"><header class="profile-top"><button class="back-chevron" aria-label="Back" onclick="go('home')">‹</button><h2>Account</h2><span class="profile-avatar-spacer"></span></header><section class="profile-person"><div class="profile-avatar" role="img" aria-label="Lucy Mary"></div><div><h1>Lucy Mary</h1><p>Your space to pause, reset, and feel better.</p></div></section><section class="profile-features"><button class="profile-card profile-history" onclick="go('history')"><h3>My History <span class="feature-icon">◷</span></h3><p>Look back on the moments that helped<br>make your day better.</p><span class="history-wave" aria-hidden="true"></span></button><button class="profile-card profile-activities" onclick="go('activities')"><h3><span class="feature-icon">⚛</span> List of Activities</h3><p>Discover the dozens of short activities<br>we offer you at any time.</p><img class="meditation-illustration" src="https://www.figma.com/api/mcp/asset/ead09bb9-efea-4e7b-b676-4fbde9beea6e.svg" alt=""></button><button class="profile-card profile-preferences" onclick="go('preferences')"><h3>My Preferences <span class="feature-icon">⚙</span></h3><p>Set the configurations that better suits<br>your Reset routine.</p></button></section></section>${nav('profile')}`;
+    $('#root').innerHTML=`<section class="profile-page"><header class="profile-top"><span class="profile-avatar-spacer" aria-hidden="true"></span><h2>Account</h2><span class="profile-avatar-spacer" aria-hidden="true"></span></header><section class="profile-person"><div class="profile-avatar" role="img" aria-label="Lucy Mary"></div><div><h1>Lucy Mary</h1><p>Your space to pause, reset, and feel better.</p></div></section><section class="profile-features"><button class="profile-card profile-history" onclick="go('history')"><h3>My History <span class="feature-icon">◷</span></h3><p>Look back on the moments that helped<br>make your day better.</p><span class="history-wave" aria-hidden="true"></span></button><button class="profile-card profile-activities" onclick="go('activities')"><h3><span class="feature-icon">⚛</span> List of Activities</h3><p>Discover the dozens of short activities<br>we offer you at any time.</p><img class="meditation-illustration" src="https://www.figma.com/api/mcp/asset/ead09bb9-efea-4e7b-b676-4fbde9b667fff3.svg" alt=""></button><button class="profile-card profile-preferences" onclick="go('preferences')"><h3>My Preferences <span class="feature-icon">⚙</span></h3><p>Set the configurations that better suits<br>your Reset routine.</p></button></section></section>${nav('profile')}`;
   };
   render();
 </script>
@@ -1119,6 +1118,10 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
 <script>
   /* Preview-only deep link for reviewing the existing onboarding questions. */
   const wimbPreviewScreen=new URLSearchParams(location.search).get('screen');
+  if(['welcome','account','onintro','location','ondone'].includes(wimbPreviewScreen)){
+    S.screen=wimbPreviewScreen;
+    render();
+  }
   if(wimbPreviewScreen==='questions'){
     S.screen='onquestion';
     render();
@@ -1590,7 +1593,7 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   }
   nav=function(on='home'){
     const active=S.activeTab||on;
-    return `<div class="wimb-status" aria-label="Device status"><span>01:24</span><span class="wimb-status-signal" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="wimb-status-battery" aria-hidden="true"></span></div><nav class="nav glass" aria-label="Main navigation" data-active-tab="${active}"><span class="nav-active-wave" aria-hidden="true"></span><span class="nav-active-indicator" aria-hidden="true"></span>${wimbNavTabs.map(tab=>`<button class="${active===tab.id?'on':''}" data-nav-tab="${tab.id}" aria-label="${tab.label}" aria-current="${active===tab.id?'page':'false'}" onclick="navigateFromNav('${tab.route}','${tab.id}',event)">${tab.icon()}</button>`).join('')}</nav>`;
+    return `<nav class="nav glass" aria-label="Main navigation" data-active-tab="${active}"><span class="nav-active-wave" aria-hidden="true"></span><span class="nav-active-indicator" aria-hidden="true"></span>${wimbNavTabs.map(tab=>`<button class="${active===tab.id?'on':''}" data-nav-tab="${tab.id}" aria-label="${tab.label}" aria-current="${active===tab.id?'page':'false'}" onclick="navigateFromNav('${tab.route}','${tab.id}',event)">${tab.icon()}</button>`).join('')}</nav>`;
   };
   function navigateFromNav(route,tabId,event){
     const navEl=event.currentTarget.closest('.nav');
@@ -2008,5 +2011,135 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
   Object.assign(window,{openQuickReset});
   render();
 </script>
+<script>
+  /* Every View Activity entry opens the matching saved activity instructions. */
+  const savedActivityGuides={
+    tea:{heading:'Take this moment<br>for yourself.',steps:['Make a warm drink you enjoy.','Sit somewhere comfortable.','Take five slow breaths.','Notice one small thing that feels good.']},
+    movement:{heading:'Move your body<br>with care.',steps:['Choose a comfortable, easy pace.','Relax your shoulders and soften your grip.','Move steadily and notice your breathing.','Slow down gently before you finish.']},
+    nature:{heading:'Step outside<br>and reconnect.',steps:['Choose a quiet path or green space.','Walk slowly and notice what surrounds you.','Take three calm, unhurried breaths.','Pause for one detail you want to remember.']},
+    reading:{heading:'Make space<br>for a quiet page.',steps:['Choose something gentle to read.','Sit somewhere comfortable.','Read slowly without rushing to finish.','Pause when one sentence stays with you.']},
+    creative:{heading:'Create without<br>pressure.',steps:['Choose one simple material or idea.','Settle into a comfortable space.','Make something freely for a few minutes.','Notice how you feel when you stop.']},
+    breathe:{heading:'Breathe slowly<br>and settle in.',steps:['Sit comfortably and soften your shoulders.','Breathe in slowly through your nose for four counts.','Breathe out gently for six counts.','Repeat the slow breathing cycle five times.']}
+  };
+  function guideForActivity(title){
+    const value=String(title||'').toLowerCase();
+    if(value.includes('tea'))return savedActivityGuides.tea;
+    if(value.includes('bike')||value.includes('movement')||value.includes('exercise'))return savedActivityGuides.movement;
+    if(value.includes('walk')||value.includes('nature')||value.includes('forest')||value.includes('garden')||value.includes('outdoor'))return savedActivityGuides.nature;
+    if(value.includes('read'))return savedActivityGuides.reading;
+    if(value.includes('creative')||value.includes('golden'))return savedActivityGuides.creative;
+    return savedActivityGuides.breathe;
+  }
+  function openActivity(title,duration,returnScreen,image){
+    S.savedActivity={title:title||'Tea & Breathe',duration:duration||'15 minutes',returnScreen:returnScreen||'journal',image:image||''};
+    go('activity');
+  }
+  function bindViewActivityActions(){
+    document.querySelectorAll('.calendar-result .cal-activity').forEach(card=>{
+      const action=card.querySelector('.activity-action');
+      if(!action)return;
+      action.setAttribute('role','button');
+      action.setAttribute('tabindex','0');
+      const open=event=>{
+        event.preventDefault();event.stopPropagation();
+        openActivity(card.querySelector('h3')?.textContent.trim(),card.querySelector('.activity-duration')?.textContent.trim(),'journal',card.querySelector('img')?.getAttribute('src')||'');
+      };
+      action.onclick=open;
+      action.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){open(event)}};
+    });
+    const memoryCard=document.querySelector('.memory-detail .memory-reset-card');
+    if(memoryCard){
+      memoryCard.onclick=event=>{
+        event.preventDefault();
+        const memory=S.selectedMemory||{};
+        openActivity(memory.reset||memory.title,memory.duration,'memorydetail',memory.image||'');
+      };
+    }
+  }
+  const renderBeforeSavedActivity=render;
+  render=function(){
+    if(S.screen==='activity'){
+      const activity=S.savedActivity||{title:'Tea & Breathe',duration:'15 minutes',returnScreen:'journal'};
+      const guide=guideForActivity(activity.title);
+      const back=activity.returnScreen==='memorydetail'?"go('memorydetail')":"S.journal='calendar';go('journal')";
+      const body=`${quickResetHeader(back,activity.title)}<span class="reset-kicker">your reset</span><h1>${guide.heading}</h1><p class="flow-copy">Move through these steps slowly, at your own pace.</p><div class="instruction-panel">${guide.steps.map(step=>`<div class="instruction"><span>${step}</span></div>`).join('')}</div><p class="instruction-support">Take this moment for yourself.</p><div class="instruction-breath-zone"><div class="instruction-breath" aria-label="Animated WIMB reset mascot" role="img"><img src="${journalMascots.calendar}" alt=""></div></div><div class="flow-actions"><button class="flow-primary" onclick="go('activity')">Do it again</button><button class="flow-link" onclick="${back}">Skip</button></div>`;
+      $('#root').innerHTML=`<section class="reset-screen reset-activity reset-instructions">${body}</section>`;
+      return;
+    }
+    renderBeforeSavedActivity();
+    bindViewActivityActions();
+  };
+  Object.assign(window,{openActivity});
+  render();
+</script>
+<style>
+  /* Exact Figma SCREEN ICON exports from node 1607:1896, reused on every matching screen control. */
+  .back-chevron,.reset-back,.memory-back,
+  .icon-action[aria-label="More options"],
+  .icon-action[aria-label="Add to favorites"],
+  .icon-action[aria-label="Remove from favorites"],
+  .heart[aria-label="Save reset"]{font-size:0!important}
+  .back-chevron:before,.reset-back:before,.memory-back:before,
+  .icon-action[aria-label="More options"]:before,
+  .icon-action[aria-label="Add to favorites"]:before,
+  .icon-action[aria-label="Remove from favorites"]:before,
+  .heart[aria-label="Save reset"]:before{
+    content:"";display:block;width:24px;height:24px;background:currentColor;
+    -webkit-mask-position:center;mask-position:center;
+    -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+    -webkit-mask-size:contain;mask-size:contain
+  }
+  .back-chevron:before,.reset-back:before,.memory-back:before{-webkit-mask-image:url("assets/screen-icons/back.svg");mask-image:url("assets/screen-icons/back.svg")}
+  .icon-action[aria-label="More options"]:before{-webkit-mask-image:url("assets/screen-icons/dots.svg");mask-image:url("assets/screen-icons/dots.svg")}
+  .icon-action[aria-label="Add to favorites"]:before,
+  .heart[aria-label="Save reset"]:before{-webkit-mask-image:url("assets/screen-icons/heart-outline.svg");mask-image:url("assets/screen-icons/heart-outline.svg")}
+  .icon-action[aria-label="Remove from favorites"]:before{-webkit-mask-image:url("assets/screen-icons/heart-filled.svg");mask-image:url("assets/screen-icons/heart-filled.svg")}
+</style>
+<style>
+  /* Figma onboarding flow 1002:5751. Interaction order is preserved; content and visual hierarchy follow the approved frames. */
+  .wimb-onboarding-page{padding:70px 26px 35px;gap:0;background:radial-gradient(circle at -5% 4%,rgba(120,215,232,.24),transparent 31%),radial-gradient(circle at 105% 78%,rgba(246,121,90,.18),transparent 28%),linear-gradient(145deg,#294f57 0%,#1a3d45 54%,#243950 100%)}
+  .wimb-onboarding-page .top{height:20px;margin:0 0 21px;color:var(--wimb-t100)}
+  .wimb-onboarding-page .top .brand,.wimb-onboarding-page .top .muted{display:none}
+  .wimb-onboarding-page .back-chevron{display:grid;place-items:center;width:18px;height:18px;padding:0;border:0;background:transparent;color:var(--wimb-t100)}
+  .wimb-onboarding-page h1{margin:0;font:600 28px/32px "Lora",serif;letter-spacing:-.4px;color:var(--wimb-t50)}
+  .wimb-onboarding-page .copy{margin-top:14px;font:400 14px/24px "DM Sans",sans-serif;color:var(--wimb-t100)}
+  .wimb-onboarding-page .onboarding-count{position:absolute;top:70px;left:50%;transform:translateX(-50%);font:500 13px/20px "DM Sans",sans-serif;color:var(--wimb-t100)}
+  .wimb-onboarding-page .progress{order:0;width:100%;height:4px;margin:21px 0 40px;gap:6px}
+  .wimb-onboarding-page .progress i{height:4px;border-radius:2px;background:rgba(183,235,246,.16)}
+  .wimb-onboarding-page .progress i.on{background:var(--wimb-t600);box-shadow:none}
+  .wimb-onboarding-page .choices{display:grid;gap:20px;margin-top:40px}
+  .wimb-onboarding-page .choice{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 22px;border:1px solid rgba(183,235,246,.40);border-radius:16px;background:linear-gradient(135deg,rgba(221,245,251,.16),rgba(120,215,232,.07) 58%,rgba(151,84,255,.10));box-shadow:inset 1px 1px rgba(255,255,255,.38),2px 2px 14px rgba(6,19,21,.16);color:var(--wimb-t50);font:500 16px/21px "Lora",serif;text-align:left}
+  .wimb-onboarding-page .choice:after{content:"";position:relative;z-index:2;width:18px;height:18px;flex:0 0 18px;border:1px solid currentColor;border-radius:50%;opacity:.65}
+  .wimb-onboarding-page .choice i{display:none}
+  .wimb-onboarding-page .choice.sel{color:var(--wimb-t900);border-color:rgba(221,245,251,.74);background:linear-gradient(110deg,rgba(183,235,246,.94),rgba(120,215,232,.76) 56%,rgba(209,192,255,.74))}
+  .wimb-onboarding-page .choice.sel:after{border:5px solid var(--wimb-t600);background:var(--wimb-t50)}
+  .wimb-onboarding-page .footer{left:26px;right:26px;bottom:35px;gap:13px}
+  .wimb-onboarding-page .footer .btn{width:100%;min-height:50px;border-radius:30px}
+  .wimb-onboarding-page .footer .text{min-height:43px;text-decoration:none}
+  .onboarding-mascot{display:block;object-fit:contain;filter:drop-shadow(0 9px 18px rgba(6,19,21,.22))}
+  .onboarding-copy-block{text-align:left}
+  .onboarding-logo{position:absolute;top:75px;left:50%;transform:translateX(-50%);font:700 20px/1 "DM Sans",sans-serif;color:var(--wimb-t50);letter-spacing:.12em}
+  .onboarding-mascot-medium{position:absolute;top:178px;left:50%;width:150px;height:148px;transform:translateX(-50%)}
+  .onboarding-copy-block:not(.onboarding-intro-copy):not(.onboarding-location-copy):not(.onboarding-done-copy){position:absolute;top:437px;left:26px;width:350px}
+  .onboarding-mascot-intro{position:absolute;top:207px;left:50%;width:147px;height:148px;transform:translateX(-50%)}
+  .onboarding-intro-copy{position:absolute;top:437px;left:26px;width:350px}
+  .onboarding-mascot-location{position:absolute;top:142px;left:50%;width:210px;height:207px;transform:translateX(-50%)}
+  .onboarding-location-copy{position:absolute;top:400px;left:26px;width:350px;text-align:center}
+  .onboarding-location-copy h1,.onboarding-location-copy .copy{text-align:center}
+  .onboarding-note{color:var(--wimb-o400);font:italic 12px/18px "DM Sans",sans-serif;text-align:center}
+  .onboarding-mascot-done{position:absolute;top:187px;left:50%;width:210px;height:207px;transform:translateX(-50%)}
+  .onboarding-done-copy{position:absolute;top:531px;left:26px;width:350px;text-align:center}
+  .onboarding-done-copy h1{font-size:32px;text-align:center}
+  .onboarding-done-copy .copy{text-align:center}
+  .onboarding-finish-mark{position:absolute;top:727px;left:50%;display:flex;align-items:center;gap:10px;transform:translateX(-50%)}
+  .onboarding-finish-mark i{width:24px;height:1px;background:rgba(221,245,251,.35)}
+  .onboarding-finish-mark b{width:6px;height:6px;border-radius:50%;background:var(--wimb-o500);opacity:.55}
+  .onboarding-welcome-title{position:absolute;top:114px;left:0;width:100%;font:600 40px/60px "Lora",serif;letter-spacing:-.4px;text-align:center;color:var(--wimb-t50)}
+  .onboarding-welcome-title span{color:var(--wimb-o400)}.onboarding-welcome-title em{font-style:normal;color:var(--wimb-t400)}
+  .onboarding-mascot-large{position:absolute;top:397px;left:50%;width:210px;height:207px;transform:translateX(-50%)}
+  .onboarding-welcome-copy{position:absolute;top:715px;left:0;width:100%;margin:0;color:var(--wimb-t100);font:400 16px/24px "DM Sans",sans-serif;text-align:center}
+  .onboarding-screen-link{position:absolute;inset:0;z-index:5;border:0;background:transparent;cursor:pointer}
+  @media(prefers-reduced-motion:reduce){.onboarding-mascot{animation:none!important}}
+</style>
 </body></html>
 
