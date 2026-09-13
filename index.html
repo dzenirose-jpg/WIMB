@@ -606,7 +606,7 @@ const originalRender=render;render=function(){if(S.screen!=='home')return origin
 </script>
 <style>
   /* Journal → Calendar: native page scroll and the existing visual language. */
-  .journal-calendar{position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;padding:var(--mobile-safe-top) 20px 124px;scroll-behavior:smooth;scrollbar-width:auto}
+  .journal-calendar{position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;padding:var(--mobile-safe-top) 20px 124px;scroll-behavior:smooth;scrollbar-width:none}
   .journal-calendar .journal-copy{margin:6px 0 18px}.journal-calendar .tabs{position:sticky;top:0;z-index:3;margin:0 -4px 22px;padding:7px 4px;background:linear-gradient(180deg,rgba(14,58,47,.94) 0%,rgba(14,58,47,.78) 80%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
   .month-nav{display:flex;align-items:center;justify-content:space-between;margin:0 0 14px}.month-nav h3{font-size:18px}.month-nav button{width:36px;height:36px;border:1px solid rgba(232,255,241,.30);border-radius:50%;background:rgba(225,248,227,.10);color:#e7f2e5;font-size:20px;line-height:1;box-shadow:inset 1px 1px rgba(255,255,255,.23)}
   .calendar-board{padding:15px 12px 14px;border-radius:18px;background:linear-gradient(145deg,rgba(243,255,244,.15),rgba(141,196,168,.06));border:1px solid rgba(232,255,241,.28);box-shadow:inset 1px 1px rgba(255,255,255,.27),0 10px 19px rgba(0,25,17,.18)}
